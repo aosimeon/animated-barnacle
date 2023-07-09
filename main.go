@@ -11,7 +11,7 @@ package main
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      localhost:8080
+// @host      url-shortner-3b6b.onrender.com
 // @BasePath  /
 
 import (
