@@ -28,7 +28,7 @@ definitions:
       updatedAt:
         type: string
     type: object
-host: localhost:8080
+host: url-shortner-3b6b.onrender.com
 info:
   contact:
     email: aosimeon@outlook.com
