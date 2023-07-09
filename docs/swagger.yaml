@@ -1,0 +1,81 @@
+basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  main.UrlPayload:
+    properties:
+      longUrl:
+        type: string
+    type: object
+  models.Url:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      longUrl:
+        type: string
+      shortUrl:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: aosimeon@outlook.com
+    name: Olusola Amoo
+    url: https://twitter.com/aosimeon
+  description: Shorten long urls.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: AltSchool Capstone Project - URL Shortner
+  version: "1.0"
+paths:
+  /{short-url}:
+    get:
+      consumes:
+      - application/json
+      description: Redirect to a url
+      parameters:
+      - description: Short url
+        in: path
+        name: short-url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "301":
+          description: Moved Permanently
+      summary: Redirect to a url
+  /shorten:
+    post:
+      consumes:
+      - application/json
+      description: Shorten a url
+      parameters:
+      - description: Url to shorten e.g https://www.altschoolafrica.com/
+        in: body
+        name: longUrl
+        required: true
+        schema:
+          $ref: '#/definitions/main.UrlPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Url'
+      summary: Shorten a url
+swagger: "2.0"

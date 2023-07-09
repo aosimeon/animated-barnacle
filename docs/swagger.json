@@ -1,0 +1,123 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Shorten long urls.",
+        "title": "AltSchool Capstone Project - URL Shortner",
+        "contact": {
+            "name": "Olusola Amoo",
+            "url": "https://twitter.com/aosimeon",
+            "email": "aosimeon@outlook.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/shorten": {
+            "post": {
+                "description": "Shorten a url",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Shorten a url",
+                "parameters": [
+                    {
+                        "description": "Url to shorten e.g https://www.altschoolafrica.com/",
+                        "name": "longUrl",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.UrlPayload"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Url"
+                        }
+                    }
+                }
+            }
+        },
+        "/{short-url}": {
+            "get": {
+                "description": "Redirect to a url",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Redirect to a url",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Short url",
+                        "name": "short-url",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "301": {
+                        "description": "Moved Permanently"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gorm.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "main.UrlPayload": {
+            "type": "object",
+            "properties": {
+                "longUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Url": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "longUrl": {
+                    "type": "string"
+                },
+                "shortUrl": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
